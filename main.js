@@ -12,7 +12,7 @@ Build Speciﬁcations:
     Bonus  Only show the ﬁrst ten results.  
 
 My Notes:
-    this project is done, but the styling on the appended elements isn't working, and I'm not sure why.
+    this project is done, but the styling on the appended elements isn't working, and I'm not sure
 */
 $(()=>{
     $.get("https://www.reddit.com/r/aww/new.json", (data)=>{
@@ -25,17 +25,48 @@ $(()=>{
             title = child.data.title;
             thumb = child.data.thumbnail;
             link = child.data.permalink;
-            console.log(child);
-            $("body").append(`<h1>${title}</h1>`)
-                .css("background-color", `#${Math.floor(Math.random()*10)}${Math.floor(Math.random()*10)}${Math.floor(Math.random()*10)}${Math.floor(Math.random()*10)}${Math.floor(Math.random()*10)}${Math.floor(Math.random()*10)}`)
-                .css("color", `#${Math.floor(Math.random()*10)}${Math.floor(Math.random()*10)}${Math.floor(Math.random()*10)}${Math.floor(Math.random()*10)}${Math.floor(Math.random()*10)}${Math.floor(Math.random()*10)}`);
+            console.log(thumb);
+            $("body").append(`<h1 id="${n}">${title}</h1>`);
+            $("body").append(`<div id="${n}"> <img src="${thumb}" width="300px" height="300px"/>`);
+            $("body").append(`<a href="https://reddit.com${link}">Click Here for OP</a></div>`);
+            $(`#${n}`).css("background-color", `#${Math.floor(Math.random()*10)}${Math.floor(Math.random()*10)}${Math.floor(Math.random()*10)}${Math.floor(Math.random()*10)}${Math.floor(Math.random()*10)}${Math.floor(Math.random()*10)}`)
+            $(`#${n}`).css("color", `#${Math.floor(Math.random()*10)}${Math.floor(Math.random()*10)}${Math.floor(Math.random()*10)}${Math.floor(Math.random()*10)}${Math.floor(Math.random()*10)}${Math.floor(Math.random()*10)}`);
                 // I was trying to do random colors for each post, but it seems to do it for all.
-
-                $("body").append(`<img src="${thumb}" width="300px" height="300px"/>`);
-                $("body").append(`<a href="https://reddit.com${link}">Click Here for OP</a>`);
             n++;
         };
+
+        $("h1").hover(
+            function(){
+                $(this)
+                .css("background-color", `#${Math.floor(Math.random()*10)}${Math.floor(Math.random()*10)}${Math.floor(Math.random()*10)}${Math.floor(Math.random()*10)}${Math.floor(Math.random()*10)}${Math.floor(Math.random()*10)}`)
+                .css("color", `#${Math.floor(Math.random()*10)}${Math.floor(Math.random()*10)}${Math.floor(Math.random()*10)}${Math.floor(Math.random()*10)}${Math.floor(Math.random()*10)}${Math.floor(Math.random()*10)}`);
+            }, function(){
+                $(this)
+                .css("background-color", "white")
+                .css("color", "black");
+            }
+        );
+    
+        $("img").hover(
+            function(){
+                $(this)
+                .css("cursor", "zoom-in")
+                .css("width", "1000px")
+                .css("height", "1000px");
+            }, function(){
+                $(this)
+                .css("cursor", "default")
+                .css("width", "300px")
+                .css("height", "300px");
+            }
+        );
+
+        $("html").css("background-color", `#${Math.floor(Math.random()*10)}${Math.floor(Math.random()*10)}${Math.floor(Math.random()*10)}${Math.floor(Math.random()*10)}${Math.floor(Math.random()*10)}${Math.floor(Math.random()*10)}`)
+
     });
+    /*
+    Justin's Notes: put them in a div w/ variable ID - utilizing the loop n, then target the varaible divs for re-styling
+    */
     //     data.data.children.forEach((child)=> {
     //         // while(n<10){
     //         //     title = child[0].data.title;
@@ -77,30 +108,4 @@ $(()=>{
         });
     });
 */
-
-    $("h1").hover(
-        function(){
-            $(this)
-            .css("background-color", `#${Math.floor(Math.random()*10)}${Math.floor(Math.random()*10)}${Math.floor(Math.random()*10)}${Math.floor(Math.random()*10)}${Math.floor(Math.random()*10)}${Math.floor(Math.random()*10)}`)
-            .css("color", `#${Math.floor(Math.random()*10)}${Math.floor(Math.random()*10)}${Math.floor(Math.random()*10)}${Math.floor(Math.random()*10)}${Math.floor(Math.random()*10)}${Math.floor(Math.random()*10)}`);
-        }, function(){
-            $(this)
-            .css("background-color", "white")
-            .css("color", "black");
-        }
-    );
-
-    $("img").hover(
-        function(){
-            $(this)
-            .css("cursor", "zoom-in")
-            .css("width", "1000px")
-            .css("height", "1000px");
-        }, function(){
-            $(this)
-            .css("cursor", "default")
-            .css("width", "300px")
-            .css("height", "300px");
-        }
-    );
 });
